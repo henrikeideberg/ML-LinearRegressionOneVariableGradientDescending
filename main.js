@@ -54,15 +54,28 @@ var layout = {
 };
 Plotly.plot( ORIGINAL, [trace], layout, { margin: { t: 0 } } );
 
+// Converge to the best fitted line
+function convergeAndPlot(theta0FromUser, theta1FromUser){
+  //Max number of iterations
+  var maxIterations = 200;
+  calculateAndPlot(maxIterations, theta0FromUser, theta1FromUser);
+}
+
 //Calculate the best fitted line
 function calculateAndPlot(count, theta0FromUser, theta1FromUser){
   var theta = [parseFloat(theta0FromUser), parseFloat(theta1FromUser)];
-  //var theta = [0.1, 0.1];
-  console.log("Original theta: ", theta);
   var newTheta = [0, 0];
   while(count > 0){
     newTheta = calculate(theta);
+    if((newTheta[0] == theta[0]) && (newTheta[1] == theta[1])){//Found the minimum - no need to continue
+      console.log("Found the minumum, plotting");
+      break;
+    }
     count--;
+    if(count == 0){//Max number of iterations reached
+      console.log("Max number of iterations reached, plotting");
+      break;
+    }
     theta = newTheta;
   }
   plotLine(newTheta);
@@ -88,7 +101,9 @@ function plotLine(newTheta){
   };
   var trace = {
     x: [800, 1200, 1600, 2400, 3200],
-    y: [calculatey(newTheta, 800), calculatey(newTheta, 1200), calculatey(newTheta, 1600), calculatey(newTheta, 2400), calculatey(newTheta, 3200)],
+    y: [calculatey(newTheta, 800), calculatey(newTheta, 1200),
+        calculatey(newTheta, 1600), calculatey(newTheta, 2400),
+        calculatey(newTheta, 3200)],
   };
   var layout = {
   xaxis: {

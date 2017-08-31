@@ -32,7 +32,7 @@
       <legend>Operations</legend>
       <input id="contour" type="button" value="Plot Contour" onclick="calculateCostAndPlot();" />
       <input id="calcCount" type="button" value="Calculate theta0 and theta1 and plot" onclick="calculateAndPlot(document.getElementById('count').value, document.getElementById('theta0FromUser').value, document.getElementById('theta1FromUser').value);"/>
-      <input id="calcConv" type="button" value="Converge theta0 and theta1 and plot" onclick="convergeAndPlot(document.getElementById('theta0').value, document.getElementById('theta1').value);"/>
+      <input id="calcConv" type="button" value="Converge theta0 and theta1 and plot" onclick="convergeAndPlot(document.getElementById('theta0FromUser').value, document.getElementById('theta1FromUser').value);"/>
     </fieldset>
     <fieldset>
       <legend>Results</legend>
