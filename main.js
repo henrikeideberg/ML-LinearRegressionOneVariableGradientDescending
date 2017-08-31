@@ -49,13 +49,16 @@ var layout = {
   },
   yaxis: {
     range: [0, 600]
-  }
+  },
+  title:'Original Data'
 };
 Plotly.plot( ORIGINAL, [trace], layout, { margin: { t: 0 } } );
 
 //Calculate the best fitted line
-function calculateAndPlot(count){
-  var theta = [0, 0.1];
+function calculateAndPlot(count, theta0FromUser, theta1FromUser){
+  var theta = [parseFloat(theta0FromUser), parseFloat(theta1FromUser)];
+  //var theta = [0.1, 0.1];
+  console.log("Original theta: ", theta);
   var newTheta = [0, 0];
   while(count > 0){
     newTheta = calculate(theta);
@@ -91,7 +94,7 @@ function plotLine(newTheta){
   xaxis: {
     range: [ 0, 4000 ]
   },
-  title:'Testline'
+  title:'Testline with theta ' + newTheta
 };
   Plotly.newPlot( TESTER, [OriginalTrace, trace], layout, { margin: { t: 0 } } );
 }
